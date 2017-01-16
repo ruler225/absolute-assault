@@ -28,12 +28,13 @@ public abstract class GameObject{
     int intHeight = object.getHeight();
     
     //Check if the two objects collide
-    if (this.intX >= (object.intX - this.getWidth()) && this.intX <= (object.intX + this.getWidth())){
-      if(this.intY >= (object.intY - this.getHeight()) && this.intY <= (object.intY + this.getHeight())){
+    if ((this.intX >= (object.intX - this.getWidth()) && this.intX <= (object.intX + this.getWidth())) ||
+      (object.intX >= (this.intX - object.getWidth()) && object.intX <= (this.intX + object.getWidth()))){
+      if((this.intY >= (object.intY - this.getHeight()) && this.intY <= (object.intY + this.getHeight())) ||
+        (object.intY >= (this.intY - object.getHeight()) && object.intY <= (this.intY + object.getHeight()))){
         return true;
       }
-    }
-    
+    }    
     return false;
   }
   
