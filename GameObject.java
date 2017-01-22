@@ -3,9 +3,13 @@ import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
 
+enum Direction{Right, Left, Up, Down}
+
 //Base class for all objects in the game
 public abstract class GameObject{
+  /**X coordinate of the object*/
   public int intX;
+  /**Y coordinate of the object*/
   public int intY;
   
   //Size properties are private because once the object is created, the size should not change.
@@ -14,15 +18,23 @@ public abstract class GameObject{
   private int intSizeY;
   
   
-  //Set the position of the object
+  /**Set the position of the object
+    * @param intX New X coordinate of the object
+    * @param intY New Y coordinate of the object
+    */
   public void setPosition(int intX, int intY){
     this.intX = intX;
     this.intY = intY;
   }
   
+  /**Draw the object on a canvas
+    * @param g Canvas to draw object on*/
   public abstract void drawObject(Graphics g);
   
-  //Returns a boolean of true or false if the object collides with another
+  /**Checks if object collides with another Gameobject
+    *@param object Object to check for a collision with this one 
+    *@return true if the object has collided with the GameObject specified, false if it hasn't collided
+    */
   public boolean checkCollision(GameObject object){
     int intWidth = object.getWidth();
     int intHeight = object.getHeight();
@@ -38,23 +50,34 @@ public abstract class GameObject{
     return false;
   }
   
-  //Return the width of the object
+  /**Gets the width of the object
+    * @return the width of the object in pixels
+    */
   public int getWidth(){
     return intSizeX;
   }
   
-  //Return the height of the object
+  /**Gets the height of the object
+    *@return the height of the object in pixels 
+    */
   public int getHeight(){
     return intSizeY;
   }
  
-  //Constructor to construct object with a certain size
+  /**Constructs a new GameObject with a specified width and height
+    *@param intWidth the width of the object
+    *@param intHeight the height of the object
+    */
   public GameObject(int intWidth, int intHeight){
     this.intSizeX = intWidth;
     this.intSizeY = intHeight;
   }
   
-  //Constructor to construct object with a certain size at an initial position
+  /**Constructs a new GameObject with a specified size at a specific location
+    * @param intX the initial X coordinate of the object
+    * @param intY the initial Y coordinate of the object    
+    * @see #GameObject(int, int)
+    */
   public GameObject(int intX, int intY, int intHeight, int intWidth){
     this.intSizeX = intWidth;
     this.intSizeY = intHeight;
