@@ -6,7 +6,9 @@ import java.io.*;
 public class animate extends GameObject{
   /**Holds all frames of the sprite*/
   public BufferedImage sprites[][];
+  /**Number of arrays for each state of the object. The index number is the state number*/
   public int intFrames[];
+  /**Total number of states*/
   public int intStates = 0;
   /**The current state of the sprite animation*/
   public int intState = 0;
@@ -27,7 +29,7 @@ public class animate extends GameObject{
   public boolean blnAirborne = false;
   
   
-  
+  /**Apply physics and gravity to this object. This method should be called once in every frame*/
   public void updatePhysics(){
     if(blnAirborne){
       this.intY += intCurrentVelocity;
@@ -38,18 +40,23 @@ public class animate extends GameObject{
     }
   }
   
+  /**Draw the object to a canvas. The picture drawn will depend on the current frame and state of the object
+    * @param g canvas to draw object to*/
   public void drawObject(Graphics g){
     g.drawImage(sprites[intState][intCurrentFrame], intX, intY, null);
   }
   
+  /**Move to the next frame of the animated sprite. Used internally but can also be called from outside
+    * the class*/
   public void nextSpriteFrame(){
     if(intCurrentFrame < intFrames[intState]){
       intCurrentFrame++;
     }else{
       intCurrentFrame = 0;
     }
-    
   }
+  
+  /**Increment the frame counter by 1. This method should be called once every frame to animate sprites properly*/
   public void updateFrameCounter(){
     if(intCurrentCounter < intUpdateFrameCounter){
      
@@ -61,6 +68,9 @@ public class animate extends GameObject{
     }
   }
   
+  /**Set a new refresh interval for the new sprite. Smaller numbers mean faster animation
+    * @param intNewCounter new refresh variable that will be used for the sprite
+    * @see #intUpdateFrameCounter*/
   public void updateFrameCounter(int intNewCounter){
     this.intUpdateFrameCounter = intNewCounter;
   }
@@ -75,7 +85,7 @@ public class animate extends GameObject{
     this.intState = intNewState;
   }
   
-  /**Constructs a new animate class which has animated sprite. Each BufferedImage object represents
+  /**Constructs a new animate object which has animated sprite. Each BufferedImage object represents
     * a specific state (ie active, inactive, jumping, etc). There can be many states, or there 
     * can be only one state, depending on the object. The individual frames of the sprite
     * will be saved in the sprites[][] array.
@@ -103,6 +113,12 @@ public class animate extends GameObject{
       
     }
   }
+  
+  /**Constructs a new animate class which has animated sprites at an initial X and Y position
+    * @param intX initial X coordinate of the object
+    * @param intY initial Y coordinate of the object
+    * @see #animate(int, int, BufferedImage[])
+    */
   public animate(int intX, int intY, int intWidth, int intHeight, BufferedImage SpriteSheet[]){
     super(intX, intY, intWidth, intHeight);
     
