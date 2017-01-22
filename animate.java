@@ -12,8 +12,31 @@ public class animate extends GameObject{
   public int intState = 0;
   /**Current frame of the sprite animation*/
   public int intCurrentFrame = 0;  
+  /**A counter that counts up to intUpdateFrameCounter, and is incremented by 1 each time updateFrameCounter() is called
+    * . When this reaches intUpdateFrameCounter, nextSpriteFrame() is called to update the sprite's frame, and then it is set back to 0.*/
   public int intCurrentCounter = 0;
+  /**Specifies how often the sprite will be drawn with the next frame, smaller numbers mean faster sprite animation.*/
   public int intUpdateFrameCounter = 5;
+  /**Specifies the fastest speed at which the object can fall*/
+  public int intTerminalVelocity = 50;
+  /**Specifies acceleration due to gravity*/
+  public int intGravity = 5;
+  /**Current velocity in the y-axis*/
+  public int intCurrentVelocity = 0;
+  /**Specifies whether the object is currently airborne or not*/
+  public boolean blnAirborne = false;
+  
+  
+  
+  public void updatePhysics(){
+    if(blnAirborne){
+      this.intY += intCurrentVelocity;
+      this.intCurrentVelocity += intGravity;
+      if(this.intCurrentVelocity > this.intTerminalVelocity){
+        this.intCurrentVelocity = this.intTerminalVelocity;
+      }
+    }
+  }
   
   public void drawObject(Graphics g){
     g.drawImage(sprites[intState][intCurrentFrame], intX, intY, null);
@@ -34,11 +57,22 @@ public class animate extends GameObject{
              
     }else{
       nextSpriteFrame();
+      intCurrentCounter = 0;
     }
   }
   
   public void updateFrameCounter(int intNewCounter){
     this.intUpdateFrameCounter = intNewCounter;
+  }
+  
+  /**Set which animation state the sprite is currently animating
+    * @param intNewState The integer number for the new animation state which will be animated
+    * @throws IllegalArgumentException If the animation state specified does not exist, then an exception will be thrown*/
+  public void setAnimationState(int intNewState){
+    if(intNewState > this.intStates){
+      throw new IllegalArgumentException("Animation state was not loaded and does not exist!");
+    }
+    this.intState = intNewState;
   }
   
   /**Constructs a new animate class which has animated sprite. Each BufferedImage object represents
