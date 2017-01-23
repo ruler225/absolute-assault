@@ -8,7 +8,10 @@ public class Projectile extends inanimate{
   public Direction projectileDirection;
   /**true if the Projectile came from a player, false if it came from an enemy*/
   public boolean blnFriendly;
+  /**The speed that the projectile will move per frame (or every time moveProjectile() is called*/
   public int intProjectileSpeed = 10;
+  /**Amount of damage projectile does to enemies*/
+  public int intDamage;
   
   /**Moves the Projectile based on its speed and direction. It is recommended for this method to be called at every frame*/
   public void moveProjectile(){
@@ -35,9 +38,11 @@ public class Projectile extends inanimate{
     * @param blnisFriendly If this is true, then the Projectile should not harm the players, if this is false, then the Projectile
     * comes from an enemy and should hurt players
     */
-  public Projectile(int intX, int intY, int intWidth, int intHeight, BufferedImage objectImage, Direction direction, boolean blnisFriendly){
+  public Projectile(int intX, int intY, int intWidth, int intHeight, int intVelocity, int intDamage, Direction direction, boolean blnisFriendly, BufferedImage objectImage){
     super(intX, intY, intWidth, intHeight, objectImage);
     projectileDirection = direction;
     this.blnFriendly = blnisFriendly;
+    this.intProjectileSpeed = intVelocity;
+    this.intDamage = intDamage;
   }
 }
