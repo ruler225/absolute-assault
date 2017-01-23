@@ -29,9 +29,10 @@ public class Player extends animate{
     * @param intWidth the width of the projectile
     * @param intHeight, the height of the projectile
     * @param projectileImage image to be used for the projectile
+    * @return the projectile shot from the player
     */
-  public Projectile shootWeapon(int intWidth, int intHeight, BufferedImage projectileImage){
-    return new Projectile(intX, intY, intWidth, intHeight, projectileImage, currentDirection, true);
+  public Projectile shootWeapon(int intWidth, int intHeight, int intVelocity, int intDamage, BufferedImage projectileImage){
+    return new Projectile(intX, intY, intWidth, intHeight, intVelocity, intDamage, currentDirection, true, projectileImage);
   }
   
   /**Set the direction that the player is currently facing. You should only set this to left or right
@@ -56,6 +57,7 @@ public class Player extends animate{
     if the player is not the primary player, and is controlled by a server or client (player 2)*/
   public Player(int intWidth, int intHeight, BufferedImage SpriteSheet[], boolean blnPrimary){
     super(intWidth, intHeight, SpriteSheet);
+    this.blnPrimary = blnPrimary;
   }
   /**Constructs a new Player at a specific location. 
     * @param intX initial X coordinate of object
@@ -64,6 +66,7 @@ public class Player extends animate{
     */
   public Player(int intX, int intY, int intWidth, int intHeight, BufferedImage SpriteSheet[], boolean blnPrimary){
     super(intX, intY, intWidth, intHeight, SpriteSheet);
+    this.blnPrimary = blnPrimary;
   }
   
 }
