@@ -99,45 +99,33 @@ public class animate extends GameObject{
     The first BufferedImage in the array will be the default state of the object.
   * 
   */
-  public animate(int intWidth, int intHeight, BufferedImage SpriteSheet[]){
+  public animate(int intWidth, int intHeight, BufferedImage SpriteSheet[][]){
     super(intWidth, intHeight);
     
     //Save all of the spritesheets' frames
     this.intStates = SpriteSheet.length;
-    int intSSWidth[] = new int[this.intStates];
     this.intFrames = new int[this.intStates];
     for(int i = 0; i < this.intStates;i++){
-      intSSWidth[i] = SpriteSheet[i].getWidth();
-      this.intFrames[i] = intSSWidth[i]/intWidth;
-      
-      for(int j = 0; j <this.intFrames[i];j++){
-        this.sprites[i][j] = SpriteSheet[i].getSubimage(j*intWidth, 0, intWidth, intHeight);
-      }
-      
+      this.intFrames[i] = SpriteSheet[i].length;
     }
+    this.sprites = SpriteSheet;
   }
+  
   
   /**Constructs a new animate class which has animated sprites at an initial X and Y position
     * @param intX initial X coordinate of the object
     * @param intY initial Y coordinate of the object
     * @see #animate(int, int, BufferedImage[])
     */
-  public animate(int intX, int intY, int intWidth, int intHeight, BufferedImage SpriteSheet[]){
+  public animate(int intX, int intY, int intWidth, int intHeight, BufferedImage SpriteSheet[][]){
     super(intX, intY, intWidth, intHeight);
     
     //Save all of the spritesheets' frames
     this.intStates = SpriteSheet.length;
-    int intSSWidth[] = new int[this.intStates];
     this.intFrames = new int[this.intStates];
     for(int i = 0; i < this.intStates;i++){
-      intSSWidth[i] = SpriteSheet[i].getWidth();
-      this.intFrames[i] = intSSWidth[i]/intWidth;
-      
-      
-      for(int j = 0; j < this.intFrames[i];j++){
-        this.sprites[i][j] = SpriteSheet[i].getSubimage(j*intWidth, 0, intWidth, intHeight);
-      }
-      
+      this.intFrames[i] = SpriteSheet[i].length;
     }
+    this.sprites = SpriteSheet;
   }
 }

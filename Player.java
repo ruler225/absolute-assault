@@ -12,17 +12,27 @@ public class Player extends animate{
   /**Weapon that the player currently has. 0 is default weapon*/
   public int intWeapon = 0;
   /**The initial velocity that the player jumps at. The default velocity is -100*/
-  public int intJumpVelocity = -100;
+  public double dblJumpVelocity = -100;
+  /**The current direction that the player is facing. This can be Direction.Right, Direction.Left,
+    * Direction.Up, or Direction.Down*/
   public Direction currentDirection = Direction.Right;
   private boolean blnPrimary = true;
   
   /**Make the player jump*/
   public void jump(){
     if(!blnAirborne){
-      this.intCurrentVelocity = this.intJumpVelocity;
+      this.dblCurrentVelocity = this.dblJumpVelocity;
       this.blnAirborne = true;
     }
   }
+  
+  /**Returns true or false depending on whether or not the player is the primary player in this instance of the game
+    * @return true if the player is primary, false if the player is from another machine on the network*/
+  public boolean isPrimary(){
+    return this.blnPrimary;
+  }
+  
+  
   
   /**Method that returns a new projectile coming from the player. It will be shot in whichever direction the player
     * is currently facing.
@@ -55,7 +65,7 @@ public class Player extends animate{
     The first BufferedImage in the array will be the default state of the object.
     @param blnPrimary Set this to true if the player is player 1 and will be controlled by the player, false
     if the player is not the primary player, and is controlled by a server or client (player 2)*/
-  public Player(int intWidth, int intHeight, BufferedImage SpriteSheet[], boolean blnPrimary){
+  public Player(int intWidth, int intHeight, BufferedImage SpriteSheet[][], boolean blnPrimary){
     super(intWidth, intHeight, SpriteSheet);
     this.blnPrimary = blnPrimary;
   }
@@ -64,7 +74,7 @@ public class Player extends animate{
     * @param intY initial Y coordinate of object
     * @see #Player(int, int, BufferedImage[], boolean)
     */
-  public Player(int intX, int intY, int intWidth, int intHeight, BufferedImage SpriteSheet[], boolean blnPrimary){
+  public Player(int intX, int intY, int intWidth, int intHeight, BufferedImage SpriteSheet[][], boolean blnPrimary){
     super(intX, intY, intWidth, intHeight, SpriteSheet);
     this.blnPrimary = blnPrimary;
   }
