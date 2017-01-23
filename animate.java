@@ -20,25 +20,28 @@ public class animate extends GameObject{
   /**Specifies how often the sprite will be drawn with the next frame, smaller numbers mean faster sprite animation.*/
   public int intUpdateFrameCounter = 5;
   /**Specifies the fastest speed at which the object can fall*/
-  public int intTerminalVelocity = 50;
+  public double dblTerminalVelocity = 50;
   /**Specifies acceleration due to gravity*/
-  public int intGravity = 5;
+  public double dblGravity = 5;
   /**Current velocity in the y-axis*/
-  public int intCurrentVelocity = 0;
+  public double dblCurrentVelocity = 0;
   /**Specifies whether the object is currently airborne or not*/
   public boolean blnAirborne = false;
+  
   
   
   /**Apply physics and gravity to this object. This method should be called once in every frame*/
   public void updatePhysics(){
     if(blnAirborne){
-      this.intY += intCurrentVelocity;
-      this.intCurrentVelocity += intGravity;
-      if(this.intCurrentVelocity > this.intTerminalVelocity){
-        this.intCurrentVelocity = this.intTerminalVelocity;
+      this.intY += (int)dblCurrentVelocity;
+      this.dblCurrentVelocity += dblGravity;
+      if(this.dblCurrentVelocity > this.dblTerminalVelocity){
+        this.dblCurrentVelocity = this.dblTerminalVelocity;
       }
     }
   }
+ 
+  
   
   /**Draw the object to a canvas. The picture drawn will depend on the current frame and state of the object
     * @param g canvas to draw object to*/
