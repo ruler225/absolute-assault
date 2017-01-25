@@ -116,7 +116,7 @@ public class animate extends GameObject{
     super(intWidth, intHeight);
     
     //Save all of the spritesheets' frames
-    int intFrameCount = 0;
+     int intFrameCount = 0;
     this.intStates = SpriteSheet.length;
     this.intFrames = new int[this.intStates];
     for(int i = 0; i < this.intStates;i++){
@@ -126,14 +126,9 @@ public class animate extends GameObject{
           intFrameCount--;
         }
       }
-        sprites[i] = new BufferedImage[intFrameCount];
-        
-        for(int j = 0;j < intFrameCount;j++){
-          sprites[i][j] = SpriteSheet[i][j];
-        }
-        
-        
+        this.intFrames[i] = intFrameCount;        
       }
+    sprites = SpriteSheet;
     }
   
   
@@ -157,13 +152,8 @@ public class animate extends GameObject{
           intFrameCount--;
         }
       }
-        sprites[i] = new BufferedImage[intFrameCount];
-        
-        for(int j = 0;j < intFrameCount;j++){
-          sprites[i][j] = SpriteSheet[i][j];
-        }
-        
-        
+        this.intFrames[i] = intFrameCount;        
       }
+    sprites = SpriteSheet;
   }
 }
