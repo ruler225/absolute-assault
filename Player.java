@@ -12,11 +12,19 @@ public class Player extends animate{
   /**Weapon that the player currently has. 0 is default weapon*/
   public int intWeapon = 0;
   /**The initial velocity that the player jumps at. The default velocity is -100*/
-  public double dblJumpVelocity = -100;
+  public double dblJumpVelocity = -40;
   /**The current direction that the player is facing. This can be Direction.Right, Direction.Left,
     * Direction.Up, or Direction.Down*/
   public Direction currentDirection = Direction.Right;
+  
+  /**True if the player is currently moving right, false if the player is not*/
+  public boolean blnMovingRight = false;
+  /**True if the player is currently moving left, false if the player is not*/
+  public boolean blnMovingLeft = false;
+  /**True if the player is the primary player, false if the player is being controlled from another server or client*/
   private boolean blnPrimary = true;
+  
+  
   
   /**Make the player jump*/
   public void jump(){

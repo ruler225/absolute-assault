@@ -11,7 +11,7 @@ public class animate extends GameObject{
   /**Total number of states*/
   public int intStates = 0;
   /**The current state of the sprite animation*/
-  public int intState = 0;
+  private int intState = 0;
   /**Current frame of the sprite animation*/
   public int intCurrentFrame = 0;  
   /**A counter that counts up to intUpdateFrameCounter, and is incremented by 1 each time updateFrameCounter() is called
@@ -30,6 +30,7 @@ public class animate extends GameObject{
   
   
   
+  
   /**Apply physics and gravity to this object. This method should be called once in every frame*/
   public void updatePhysics(){
     if(blnAirborne){
@@ -40,7 +41,7 @@ public class animate extends GameObject{
       }
     }
   }
- 
+  
   
   
   /**Draw the object to a canvas. The picture drawn will depend on the current frame and state of the object
@@ -52,7 +53,7 @@ public class animate extends GameObject{
   /**Move to the next frame of the animated sprite. Used internally but can also be called from outside
     * the class*/
   public void nextSpriteFrame(){
-    if(intCurrentFrame < intFrames[intState]){
+    if(intCurrentFrame < intFrames[intState] - 1){
       intCurrentFrame++;
     }else{
       intCurrentFrame = 0;
@@ -62,9 +63,9 @@ public class animate extends GameObject{
   /**Increment the frame counter by 1. This method should be called once every frame to animate sprites properly*/
   public void updateFrameCounter(){
     if(intCurrentCounter < intUpdateFrameCounter){
-     
-        intCurrentCounter++;
-             
+      
+      intCurrentCounter++;
+      
     }else{
       nextSpriteFrame();
       intCurrentCounter = 0;
@@ -88,6 +89,18 @@ public class animate extends GameObject{
     this.intState = intNewState;
   }
   
+  /**Get the current animation state of the object
+    * @return int indicating the current animation state of the object*/
+  public int getCurrentState(){
+    return intState;
+  }
+  
+  /**Get the number of states that exist for this object
+    * @return int indicating the highest index number to be used for animation states*/
+  public int getStates(){
+    return intStates - 1;
+  }
+  
   /**Constructs a new animate object which has animated sprite. Each BufferedImage object represents
     * a specific state (ie active, inactive, jumping, etc). There can be many states, or there 
     * can be only one state, depending on the object. The individual frames of the sprite
@@ -97,19 +110,32 @@ public class animate extends GameObject{
     @param SpriteSheet Array of BufferedImages for the animated sprite. Each BufferedImage will contain different frames
     these frames must be the specified width and height) and will correspond to different states of the object.
     The first BufferedImage in the array will be the default state of the object.
-  * 
-  */
+    * 
+    */
   public animate(int intWidth, int intHeight, BufferedImage SpriteSheet[][]){
     super(intWidth, intHeight);
     
     //Save all of the spritesheets' frames
+    int intFrameCount = 0;
     this.intStates = SpriteSheet.length;
     this.intFrames = new int[this.intStates];
     for(int i = 0; i < this.intStates;i++){
-      this.intFrames[i] = SpriteSheet[i].length;
+      intFrameCount = SpriteSheet[i].length;
+      for(int j = 0; j < SpriteSheet[i].length;j++){
+        if(SpriteSheet[i][j] == null){
+          intFrameCount--;
+        }
+      }
+        sprites[i] = new BufferedImage[intFrameCount];
+        
+        for(int j = 0;j < intFrameCount;j++){
+          sprites[i][j] = SpriteSheet[i][j];
+        }
+        
+        
+      }
     }
-    this.sprites = SpriteSheet;
-  }
+  
   
   
   /**Constructs a new animate class which has animated sprites at an initial X and Y position
@@ -121,11 +147,23 @@ public class animate extends GameObject{
     super(intX, intY, intWidth, intHeight);
     
     //Save all of the spritesheets' frames
+    int intFrameCount = 0;
     this.intStates = SpriteSheet.length;
     this.intFrames = new int[this.intStates];
     for(int i = 0; i < this.intStates;i++){
-      this.intFrames[i] = SpriteSheet[i].length;
-    }
-    this.sprites = SpriteSheet;
+      intFrameCount = SpriteSheet[i].length;
+      for(int j = 0; j < SpriteSheet[i].length;j++){
+        if(SpriteSheet[i][j] == null){
+          intFrameCount--;
+        }
+      }
+        sprites[i] = new BufferedImage[intFrameCount];
+        
+        for(int j = 0;j < intFrameCount;j++){
+          sprites[i][j] = SpriteSheet[i][j];
+        }
+        
+        
+      }
   }
 }

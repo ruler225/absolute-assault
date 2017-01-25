@@ -21,7 +21,7 @@ public abstract class Enemy extends animate{
     these frames must be the specified width and height) and will correspond to different states of the object.
     The first BufferedImage in the array will be the default state of the object.
     */
-  public Enemy(int intWidth, int intHeight, int intHealth, BufferedImage SpriteSheet[]){
+  public Enemy(int intWidth, int intHeight, int intHealth, BufferedImage SpriteSheet[][]){
     super(intWidth, intHeight, SpriteSheet);
   }
   
@@ -30,7 +30,7 @@ public abstract class Enemy extends animate{
     * @param intY initial Y coordinate of the Enemy
     * @see #Enemy(int, int, BufferedImage[])
     */
-  public Enemy(int intX, int intY, int intWidth, int intHeight, int intHealth, BufferedImage SpriteSheet[]){
+  public Enemy(int intX, int intY, int intWidth, int intHeight, int intHealth, BufferedImage SpriteSheet[][]){
     super(intX, intY, intWidth, intHeight, SpriteSheet);
   }
   
