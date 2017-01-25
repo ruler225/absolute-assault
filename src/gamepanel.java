@@ -44,12 +44,12 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
   Timer thetimer;
   //Constructor
   public gamepanel() {
-//    area.setSize(200, 100);
-//    area.setLocation(0, 0);
-//    this.add(area);
+    area.setSize(300, 100);
+    area.setLocation(0, 0);
+    this.add(area);
     //read all the images Files
-    screen = new BufferedImage(1800, 720, BufferedImage.TYPE_INT_ARGB);
-    buffer = screen.createGraphics();
+    
+    
     BufferedReader br = null;
     FileReader fr = null;
     try {
@@ -71,12 +71,30 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
       int y = 0; 
       String line;      
       inanimate current;
+      int intTileLength = 0;
+      int intTileWidth = 0;
       int intCounter = 0;      
       //read the CSV file
       fr = new FileReader("../Map/Level1.csv");
       br = new BufferedReader(fr);      
+      
+      //See how many elements should be loaded in the csv file
+      while((line = br.readLine()) != null){
+        String str[] = line.split(",");
+        intTileLength += str.length;
+        if(str.length > intTileWidth){
+          intTileWidth = str.length;
+        }
+      }
+      
+      //Close FileReader and BufferedReader and reopen the file
+      fr.close();
+      br.close();
+      fr = new FileReader("../Map/Level1.csv");
+      br = new BufferedReader(fr);
+      
       // The (current) map 6X13. Change if map changes
-      tiles = new inanimate[168];  //Change if map dimension changes
+      tiles = new inanimate[intTileLength];  //Change if map dimension changes
       while ((line = br.readLine()) != null) {
         x = 0; // each row start from x-position 0
         String str[] = line.split(","); // parses the string array
@@ -87,7 +105,9 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
           intCounter ++;          
         }
         y = y + IMAGE_SIZE; // get the y-position of the next tile
-      }      
+      }
+      screen = new BufferedImage(intTileWidth*100, 720, BufferedImage.TYPE_INT_ARGB);
+      buffer = screen.createGraphics();
       // Read images for the player
       readImgForPlayers();      
     } catch (IOException e1) {    
@@ -169,8 +189,7 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
    * Paint
    **/
   public void paintComponent(Graphics g) {
-   // g.clearRect(0, 0, 1280, 720);   //draws a rectangle
-    buffer.clearRect(0, 0, 1800, 720);
+    buffer.clearRect(0, 0, screen.getWidth(), screen.getHeight());
     //draw the background
     buffer.drawImage(backgroundImg,0,0,null); 
     
@@ -199,9 +218,16 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
       player.updatePhysics();    
       player.drawObject(buffer);
       
+      if(player.intX > screen.getWidth() - 1180){
+        player.intX -= 5;
+      }
+      if(player.intX < 100){
+        player.intX += 5;
+      }
       
       
-      g.drawImage(screen.getSubimage(player.intX, 0, 1280, 720), 0, 0, null);
+      
+      g.drawImage(screen.getSubimage(player.intX - 100, 0, 1280, 720), 0, 0, null);
      
     }
   }  
@@ -221,8 +247,17 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
      
      if(tiles[i] != null){
       if(player.checkCollision(tiles[i]) && player.dblCurrentVelocity >=0){
+        if(player.intY <= tiles[i].intY - player.getHeight()){
         player.blnAirborne = false;
         blnCollisionOccurred = true;
+        player.intY = tiles[i].intY - player.getHeight();
+        }else if(player.intY >= tiles[i].intY - player.getHeight()){
+          if(player.intX < tiles[i].intX){
+            player.intX -= 5;
+          }else if(player.intX > tiles[i].intX){
+            player.intX += 5;
+          }
+        }
       }
     }
    }
@@ -244,9 +279,10 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
       case KeyEvent.VK_F1:        
         //Shoot attack      
         int nextState = PlayerStates.AttackRight.ordinal();
+//        player.shootProjectile(intWidth, intHeight, )
         player.currentDirection = Direction.Right;
         if(currentState != PlayerStates.AttackLeft.ordinal() && currentState != PlayerStates.AttackRight.ordinal()){
-          if(currentState == PlayerStates.StandLeft.ordinal() ||currentState == PlayerStates.WalkLeft.ordinal()||currentState == PlayerStates.JumpLeft.ordinal()){
+          if(currentState == PlayerStates.StandLeft.ordinal() || currentState == PlayerStates.WalkLeft.ordinal()||currentState == PlayerStates.JumpLeft.ordinal()){
             nextState = PlayerStates.AttackLeft.ordinal();
             player.currentDirection = Direction.Left;
           }          
