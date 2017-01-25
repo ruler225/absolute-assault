@@ -12,8 +12,9 @@ public class menupanel extends JPanel{
   
   public menupanel() {
     try{ // load the background images
-      backgroundImg = ImageIO.read(new File("../BackGrounds/MenuBackGround.png"));
+      backgroundImg = ImageIO.read(new File("BackGrounds/MenuBackGround.png"));
     }catch(IOException e) {
+      System.out.println(e.toString());
     }  
   }
   

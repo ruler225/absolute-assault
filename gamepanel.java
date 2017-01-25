@@ -53,17 +53,17 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
     BufferedReader br = null;
     FileReader fr = null;
     try {
-      backgroundImg = ImageIO.read(new File("../BackGrounds/sky.png"));
-      r1 = ImageIO.read(new File("../Map/island/R1.png"));
-      r1b = ImageIO.read(new File("../Map/island/R1B.png"));
-      l1 = ImageIO.read(new File("../Map/island/L1.png"));
-      l1b = ImageIO.read(new File("../Map/island/L1B.png"));
-      m = ImageIO.read(new File("../Map/island/M.png"));
-      mb = ImageIO.read(new File("../Map/island/MB.png"));
-      le = ImageIO.read(new File("../Map/grassplatform/le.png"));
-      re = ImageIO.read(new File("../Map/grassplatform/re.png"));
-      gr = ImageIO.read(new File("../Map/grassplatform/grass.png"));
-      b  = ImageIO.read(new File("../Map/grassplatform/black.png"));
+      backgroundImg = ImageIO.read(new File("BackGrounds/sky.png"));
+      r1 = ImageIO.read(new File("Map/island/R1.png"));
+      r1b = ImageIO.read(new File("Map/island/R1B.png"));
+      l1 = ImageIO.read(new File("Map/island/L1.png"));
+      l1b = ImageIO.read(new File("Map/island/L1B.png"));
+      m = ImageIO.read(new File("Map/island/M.png"));
+      mb = ImageIO.read(new File("Map/island/MB.png"));
+      le = ImageIO.read(new File("Map/grassplatform/le.png"));
+      re = ImageIO.read(new File("Map/grassplatform/re.png"));
+      gr = ImageIO.read(new File("Map/grassplatform/grass.png"));
+      b  = ImageIO.read(new File("Map/grassplatform/black.png"));
       
       //read csv file and create tiles
       //tile positions
@@ -75,7 +75,7 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
       int intTileWidth = 0;
       int intCounter = 0;      
       //read the CSV file
-      fr = new FileReader("../Map/Level1.csv");
+      fr = new FileReader("Map/Level1.csv");
       br = new BufferedReader(fr);      
       
       //See how many elements should be loaded in the csv file
@@ -90,7 +90,7 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
       //Close FileReader and BufferedReader and reopen the file
       fr.close();
       br.close();
-      fr = new FileReader("../Map/Level1.csv");
+      fr = new FileReader("Map/Level1.csv");
       br = new BufferedReader(fr);
       
       // The (current) map 6X13. Change if map changes
@@ -352,33 +352,33 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
    **/
   public void readImgForPlayers() {
     BufferedImage spriteSheet[][] = new BufferedImage[ANIMATION_STATES][MAX_FRAMES];
-    File folder = new File("../Character/holdingdefault/standright");
+    File folder = new File("Character/holdingdefault/standright");
     listFilesForFolder(folder, spriteSheet[0]); 
     
-    folder = new File("../Character/holdingdefault/attackLeft");
+    folder = new File("Character/holdingdefault/attackLeft");
     listFilesForFolder(folder, spriteSheet[1]);
     
-    folder = new File("../Character/holdingdefault/walkright");
+    folder = new File("Character/holdingdefault/walkright");
     listFilesForFolder(folder, spriteSheet[2]);
     
-    folder = new File("../Character/holdingdefault/walkleft");
+    folder = new File("Character/holdingdefault/walkleft");
     listFilesForFolder(folder, spriteSheet[3]);
     
-    folder = new File("../Character/holdingdefault/standleft");
+    folder = new File("Character/holdingdefault/standleft");
     listFilesForFolder(folder, spriteSheet[4]);
     
-    folder = new File("../Character/holdingdefault/attackright");
+    folder = new File("Character/holdingdefault/attackright");
     listFilesForFolder(folder, spriteSheet[5]);
     
-    folder = new File("../Character/holdingdefault/jumpright");
+    folder = new File("Character/holdingdefault/jumpright");
     listFilesForFolder(folder, spriteSheet[6]);
     
-    folder = new File("../Character/holdingdefault/jumpleft");
+    folder = new File("Character/holdingdefault/jumpleft");
     listFilesForFolder(folder, spriteSheet[7]);
     
-   folder = new File("../Character/holdingdefault/crouchleft");
+   folder = new File("Character/holdingdefault/crouchleft");
     listFilesForFolder(folder, spriteSheet[8]);
-     folder = new File("../Character/holdingdefault/crouchright");
+     folder = new File("Character/holdingdefault/crouchright");
     listFilesForFolder(folder, spriteSheet[9]);
     
     //create player
@@ -388,6 +388,8 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
   /**
    * read all files in the folder and create the image
    **/
+  
+  
   public void listFilesForFolder(final File folder, BufferedImage imagesForState[]) {
     int i = 0;
     for (final File fileEntry : folder.listFiles()) {      
@@ -401,4 +403,5 @@ public class gamepanel extends JPanel implements KeyListener, ActionListener{
       } 
     }    
   } 
+  
 }
