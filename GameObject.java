@@ -50,6 +50,30 @@ public abstract class GameObject{
     return false;
   }
   
+   /**Checks if object collides with another Gameobject in the X axis
+    *@param object Object to check for a collision with this one 
+    *@return true if the object has collided with the GameObject in the X axis, false if it hasn't collided
+    */
+  public boolean checkCollisionX(GameObject object){
+    if ((this.intX >= (object.intX - this.getWidth()) && this.intX <= (object.intX + this.getWidth())) ||
+      (object.intX >= (this.intX - object.getWidth()) && object.intX <= (this.intX + object.getWidth()))){
+     return true; 
+    }
+    return false;
+  }
+  
+   /**Checks if object collides with another Gameobject in the Y axis
+    *@param object Object to check for a collision with this one 
+    *@return true if the object has collided with the GameObject in the Y axis, false if it hasn't collided
+    */
+  public boolean checkCollisionY(GameObject object){
+     if((this.intY >= (object.intY - this.getHeight()) && this.intY <= (object.intY + this.getHeight())) ||
+        (object.intY >= (this.intY - object.getHeight()) && object.intY <= (this.intY + object.getHeight()))){
+       return true;
+     }
+     return false;
+  }
+  
   /**Gets the width of the object
     * @return the width of the object in pixels
     */
