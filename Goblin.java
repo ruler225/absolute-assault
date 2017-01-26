@@ -16,10 +16,12 @@ public class Goblin extends Enemy{
   public int intWalkingLeftState = 0;
   public int intWalkingRightState = 0;
   
+  /**Image to be used for the projectiles shot by the Goblin*/
   public BufferedImage projectileImage;
   
   
   /**Method to update the behaviour of the enemy. It is recommended that this method is called at every frame
+    * @param player Player for enemy to aim for
     * @return projectile object that may result from the object's behaviour. This value will be null if the enemy
     does not shoot a projectile, and will return a Projectile object if the object shoots a projectile*/
   public Projectile updateBehaviour(Player player){
@@ -33,11 +35,13 @@ public class Goblin extends Enemy{
         this.setAnimationState(intWalkingLeftState);
       }
       this.intX -= 5;
+      this.currentDirection = Direction.Left;
     }else if(this.intX > player.intX - 1500 && this.intX < player.intX - 500){ //Same thing as above but moving right instead of left
       if(this.getCurrentState() != intWalkingRightState){
         this.setAnimationState(intWalkingRightState);
       }
       this.intX += 5;
+      this.currentDirection = Direction.Right;
     }else if(player.intX > this.intX - 500){
       if(this.getCurrentState() != this.intAttackAnimationState){
         this.setAnimationState(intAttackAnimationState);
@@ -55,6 +59,13 @@ public class Goblin extends Enemy{
     return projectile;
   }
   
+  /**Method to update the behaviour of the enemy when there are two players. When using this method, the enemy
+    * will aim for the closest player
+    * @param player1 Player object for player 1
+    * @param player2 Player object for player 2
+    * @return projectile object that may result from the object's behaviour. This value will be null if the enemy
+    does not shoot a projectile, and will return a Projectile object if the object shoots a projectile
+    */
   public Projectile updateBehaviour(Player player1, Player player2){
     Projectile projectile = null;
     int intDistance1 = player1.intX - this.intX;
