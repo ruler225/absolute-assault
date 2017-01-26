@@ -8,7 +8,9 @@ public abstract class Enemy extends animate{
   public int intHealth;
   
   /**Implemented by subclasses to make the subclasses of Enemy behave differently. This method should be called at every frame.*/
- public abstract void updateBehaviour();
+ public abstract Projectile updateBehaviour(Player player);
+ 
+ public abstract Projectile updateBehaviour(Player player1, Player player2);
   
   /**Constructs a new Enemy object with a specific width amd height. Each BufferedImage object represents
     * a specific state (ie active, inactive, jumping, etc). There can be many states, or there 
@@ -28,7 +30,7 @@ public abstract class Enemy extends animate{
   /**Constructs a new Enemy object with a specific width and height at a specific location
     *@param intX initial X coordinate of the Enemy
     * @param intY initial Y coordinate of the Enemy
-    * @see #Enemy(int, int, BufferedImage[])
+    * @see #Enemy(int, int, int, BufferedImage[][])
     */
   public Enemy(int intX, int intY, int intWidth, int intHeight, int intHealth, BufferedImage SpriteSheet[][]){
     super(intX, intY, intWidth, intHeight, SpriteSheet);
